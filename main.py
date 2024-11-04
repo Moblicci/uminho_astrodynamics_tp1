@@ -20,7 +20,7 @@ radius_earth = 6378 #km
 ###########################
 distance_earth_moon = 3.844e5 #Km
 
-initial_ship_altitude = 300 #km
+initial_ship_altitude = 200 #km
 initial_ship_radius = initial_ship_altitude + radius_earth
 delta_v = float(input("Digite o valor de delta V (km/s): "))
 initial_moon_angle = float(input("Digite o ângulo inicial da lua em relação a terra (em graus): "))
