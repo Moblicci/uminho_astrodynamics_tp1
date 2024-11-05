@@ -28,7 +28,8 @@ initial_moon_angle = float(input("Digite o ângulo inicial da lua em relação a
 initial_ship_velocity = np.sqrt(μ_earth/initial_ship_radius) + delta_v
 initial_Θ_moon = np.radians(initial_moon_angle)
 
-initial_position_ship = np.array([0.0, initial_ship_radius])
+initial_position_ship = np.array([0.0, -initial_ship_radius])
+#initial_position_ship = np.array([0.0, initial_ship_radius])
 initial_velocity_ship = np.array([initial_ship_velocity, 0.0])
 initial_conditions = [initial_position_ship[0], initial_position_ship[1], initial_velocity_ship[0], initial_velocity_ship[1]]
 
@@ -85,6 +86,7 @@ t_eval = np.linspace(0, 850000, 50000)
 
 solution = solve_ivp(orbital_state_derivates, t_span, initial_conditions, method='DOP853', t_eval=t_eval, rtol=1e-12, atol=1e-14)
 
+
 #######################
 ##### PLOT ############
 #######################
@@ -101,6 +103,8 @@ apogee_gravitational_force = get_gravitational_acceleration_vector(μ_earth, apo
 kinetic_energy = 0.5 * (apogee_velocity[0]**2 + apogee_velocity[1]**2)
 potential_energy = -μ_earth / apogee_distance
 specific_energy = kinetic_energy + potential_energy
+tempo_total_segundos = t_span[1]
+tempo_total_dias = tempo_total_segundos / 86400
 print("### Variáveis no Apogeu ###")
 print(f"Posição (x, y): {apogee_position}")
 print(f"Distância da Terra: {apogee_distance:.2f} km")
@@ -110,6 +114,8 @@ print(f"Velocidade Total: {np.sqrt(apogee_velocity[0]**2 + apogee_velocity[1]**2
 print(f"Energia Cinética Específica: {kinetic_energy:.3f} km^2/s^2")
 print(f"Energia Potencial Específica: {potential_energy:.3f} km^2/s^2")
 print(f"Energia Específica Total: {specific_energy:.3f} km^2/s^2")
+print(f"Tempo total da simulação: {tempo_total_dias:.2f} dias")
+print(f"Velocidade inicial: {np.sqrt(initial_velocity_ship[0]**2 + initial_velocity_ship[1]**2):.3f} km/s")
 
 ############
 ### PLOT ###
